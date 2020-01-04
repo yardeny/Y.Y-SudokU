@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Saira+Stencil+One&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awsome -->
+    <script src="https://kit.fontawesome.com/36dbf9bfcb.js"></script>
+    <!-- Image title -->
+    <link rel="shortcut icon" href="sudoku.ico" />
+
+    <title>Y.Y Sudoku</title>
+</head>
+
+<body>
+    <h1 id="h1Headline"><span>Y</span><span>.</span><span>Y </span><span>S</span><span>u</span><span>d</span><span>o</span><span>k</span>u</h1>
+
+    <!-- Whole game container -->
+    <div class="container">
+        <div id="outterBoxId" class="outterBox">
+            <div class="contentBox container-fluid ">
+
+                <!--"Welcome screen-->
+                <div id="wellcomeScr" class=" screenDiv ">
+
+                    <h3>Welcome</h3>
+                    <div class="row justify-content-center">
+                        <button class="col-8 col-md-3 btn btn-success" onclick="toggleScreens('wellcomeScr', 'afterLoginScr','guest')">Guest</button>
+                        <button class="col-8 col-md-3 btn btn-success" onclick="toggleScreens('wellcomeScr', 'loginScr')">Log In</button>
+                        <button class="col-8 col-md-3 btn btn-success" onclick="toggleScreens('wellcomeScr', 'registerScr')">Register</button>
+                    </div>
+                </div>
+
+                <!--Login screen-->
+
+                <div id="loginScr" class="Hide screenDiv ">
+                    <h3>Log In</h3>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <input type="text" id="usernameLogin" placeholder="Username" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" id="passwordLogin" placeholder="Password" onfocus="onInputFocus(this.id)">
+                        </div>
+                    </div>
+                    <button onclick="Login()" class="btn btn-success">Log In</button>
+                    <button onclick="toggleScreens('loginScr', 'forgetPassScr')" class="btn btn-success">Forget Password</button>
+                    <button class="btn btn-outline-dark" onclick="toggleScreens('loginScr', 'wellcomeScr')"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+
+
+                <!--Register screen-->
+
+                <div id="registerScr" class="Hide screenDiv">
+                    <h3 id="adjustHeadline">Register</h3>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <input id="regUsername" type="text" placeholder="Choose username" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <div class="col-12">
+                            <input id="regPassword" type="password" placeholder="Choose password" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <div class="col-12">
+                            <input id="regPasswordRepeat" type="password" placeholder="Repeat password" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <div class="col-12">
+                            <input id="regEmail" type="email" placeholder="Email" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <div class="col-12">
+                            <input id="securityQuestion" type="number" placeholder="Year of birth" onfocus="onInputFocus(this.id)">
+                        </div>
+                        <button class="btn btn-success" type="button" onclick="regiserValidation()">Register</button>
+                        <button class="btn btn-outline-dark" onclick="toggleScreens('registerScr', 'wellcomeScr')"><i class="fas fa-sign-out-alt"></i></button>
+
+                    </div>
+                </div>
+
+                <!--Forget password screen-->
+                <div id="forgetPassScr" class="Hide screenDiv">
+                    <h3>Choose a new password</h3>
+                    <div class="row justify-content-center"></div>
+                    <div class="col-12">
+                        <input id="usernameForget" type="text " placeholder="Username" onfocus="onInputFocus(this.id)">
+                    </div>
+                    <div class="col-12">
+                        <input id="securityQuestionValid" type="text " placeholder="Year of birth" onfocus="onInputFocus(this.id)">
+                    </div>
+                    <div class="col-12">
+                        <input id="updPassword" type="password" placeholder="New assword" onfocus="onInputFocus(this.id)">
+                    </div>
+                    <div class="col-12">
+                        <input id="updPasswordRepeat" type="password" placeholder="Repeat password" onfocus="onInputFocus(this.id)">
+                    </div>
+                    <button class="btn btn-success" onclick="CheckForgetPass()">Set New Password</button>
+                    <button class="btn btn-outline-dark" onclick="toggleScreens('forgetPassScr', 'wellcomeScr')"><i class="fas fa-sign-out-alt"></i></button>
+
+                </div>
+
+                <!--After login screen screen-->
+
+                <div id="afterLoginScr" class="Hide screenDiv">
+                    <h3>Hello <span id="usernameSpan"></span></h3>
+                    <h5>Choose a difficulty</h5>
+                    <div class="row justify-content-center">
+                        <div class="col-xs-12 col-sm-3">
+                            <button onclick="closeAndOpenSudoku(20)" class="btn btn btn-success">Easy</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 text-center">
+                            <p class="text-success">Hides 20 cells</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center ">
+                        <div class="col-xs-12 col-sm-3">
+                            <button onclick="closeAndOpenSudoku(40)" class="btn btn btn-warning">Medium</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-3">
+                            <p class="text-warning">Hides 40 cells</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-xs-12 col-sm-3">
+                            <button onclick="closeAndOpenSudoku(60)" class="btn btn btn-danger">Hard</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-3">
+                            <p class="text-danger">Hides 60 cells</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 justify-content-center">
+                            <button class="btn btn-outline-dark" onclick="toggleScreens('afterLoginScr', 'wellcomeScr')"><i class="fas fa-sign-out-alt"></i></button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Sudoku Screen -->
+        <div id="sudokuScr" class="container-fluid Hide">
+            <div class="row">
+                <div class="col sudokuContainer ">
+                    <table class="sudokuTable ">
+                        <tr>
+                            <td id="c00" class="boldTop boldLeft"><input id="i00"></td>
+                            <td id="c01" class="boldTop "><input id="i01"></td>
+                            <td id="c02" class="boldTop boldRight"><input id="i02"></td>
+                            <td id="c03" class="boldTop"><input id="i03"></td>
+                            <td id="c04" class="boldTop"><input id="i04"></td>
+                            <td id="c05" class="boldTop boldRight"><input id="i05"></td>
+                            <td id="c06" class="boldTop "><input id="i06"></td>
+                            <td id="c07" class="boldTop "><input id="i07"></td>
+                            <td id="c08" class="boldTop boldRight"><input id="i08"></td>
+                        </tr>
+                        <tr>
+                            <td id="c10" class="boldLeft"><input id="i10"></td>
+                            <td id="c11"><input id="i11"></td>
+                            <td id="c12" class="boldRight"><input id="i12"></td>
+                            <td id="c13"><input id="i13"></td>
+                            <td id="c14"><input id="i14"></td>
+                            <td id="c15" class="boldRight"><input id="i15"></td>
+                            <td id="c16"><input id="i16"></td>
+                            <td id="c17"><input id="i17"></td>
+                            <td id="c18" class="boldRight"><input id="i18"></td>
+                        </tr>
+                        <tr>
+                            <td id="c20" class="boldLeft"><input id="i20"></td>
+                            <td id="c21"><input id="i21"></td>
+                            <td id="c22" class="boldRight"><input id="i22"></td>
+                            <td id="c23"><input id="i23"></td>
+                            <td id="c24"><input id="i24"></td>
+                            <td id="c25" class="boldRight"><input id="i25"></td>
+                            <td id="c26"><input id="i26"></td>
+                            <td id="c27"><input id="i27"></td>
+                            <td id="c28" class="boldRight"><input id="i28"></td>
+                        </tr>
+                        <tr>
+                            <td id="c30" class="boldTop boldLeft "><input id="i30"></td>
+                            <td id="c31" class="boldTop"><input id="i31"></td>
+                            <td id="c32" class="boldTop boldRight"><input id="i32"></td>
+                            <td id="c33" class="boldTop"><input id="i33"></td>
+                            <td id="c34" class="boldTop"><input id="i34"></td>
+                            <td id="c35" class="boldTop boldRight"><input id="i35"></td>
+                            <td id="c36" class="boldTop"><input id="i36"></td>
+                            <td id="c37" class="boldTop"><input id="i37"></td>
+                            <td id="c38" class="boldTop boldRight"><input id="i38"></td>
+                        </tr>
+                        <tr>
+                            <td id="c40" class="boldLeft"><input id="i40"></td>
+                            <td id="c41"><input id="i41"></td>
+                            <td id="c42" class="boldRight"><input id="i42"></td>
+                            <td id="c43"><input id="i43"></td>
+                            <td id="c44"><input id="i44"></td>
+                            <td id="c45" class="boldRight"><input id="i45"></td>
+                            <td id="c46"><input id="i46"></td>
+                            <td id="c47"><input id="i47"></td>
+                            <td id="c48" class="boldRight"><input id="i48"></td>
+                        </tr>
+                        <tr>
+                            <td id="c50" class="boldLeft"><input id="i50"></td>
+                            <td id="c51"><input id="i51"></td>
+                            <td id="c52" class="boldRight"><input id="i52"></td>
+                            <td id="c53"><input id="i53"></td>
+                            <td id="c54"><input id="i54"></td>
+                            <td id="c55" class="boldRight"><input id="i55"></td>
+                            <td id="c56"><input id="i56"></td>
+                            <td id="c57"><input id="i57"></td>
+                            <td id="c58" class="boldRight"><input id="i58"></td>
+                        </tr>
+                        <tr>
+                            <td id="c60" class="boldTop boldLeft"><input id="i60"></td>
+                            <td id="c61" class="boldTop"><input id="i61"></td>
+                            <td id="c62" class="boldTop boldRight"><input id="i62"></td>
+                            <td id="c63" class="boldTop"><input id="i63"></td>
+                            <td id="c64" class="boldTop"><input id="i64"></td>
+                            <td id="c65" class="boldTop boldRight"><input id="i65"></td>
+                            <td id="c66" class="boldTop"><input id="i66"></td>
+                            <td id="c67" class="boldTop"><input id="i67"></td>
+                            <td id="c68" class="boldTop boldRight"><input id="i68"></td>
+                        </tr>
+                        <tr>
+                            <td id="c70" class="boldLeft"><input id="i70"></td>
+                            <td id="c71"><input id="i71"></td>
+                            <td id="c72" class="boldRight"><input id="i72"></td>
+                            <td id="c73"><input id="i73"></td>
+                            <td id="c74"><input id="i74"></td>
+                            <td id="c75" class="boldRight"><input id="i75"></td>
+                            <td id="c76"><input id="i76"></td>
+                            <td id="c77"><input id="i77"></td>
+                            <td id="c78" class="boldRight"><input id="i78"></td>
+                        </tr>
+                        <tr>
+                            <td id="c80" class="boldLeft boldBottum"><input id="i80"></td>
+                            <td id="c81" class="boldBottum"><input id="i81"></td>
+                            <td id="c82" class="boldBottum boldRight"><input id="i82"></td>
+                            <td id="c83" class="boldBottum"><input id="i83"></td>
+                            <td id="c84" class="boldBottum"><input id="i84"></td>
+                            <td id="c85" class="boldBottum boldRight"><input id="i85"></td>
+                            <td id="c86" class="boldBottum"><input id="i86"></td>
+                            <td id="c87" class="boldBottum"><input id="i87"></td>
+                            <td id="c88" class="boldBottum boldRight"><input id="i88"></td>
+                        </tr>
+                    </table>
+                    <!-- Gives status after Check sudoku clicked (h4) -->
+                    <h4 id="correctSpan"></h4>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 col-8">
+                            <button id="hintsButton" class="btn btn-success" onclick="toggleHints()"> Hints are : On</button>
+                        </div>
+                        <div class="col-md-4 col-8">
+                            <button class="btn btn-outline-dark" onclick="solvedSudokuCheck()">Check sudoku </button>
+                        </div>
+                        <div class="col-md-4 col-8">
+                            <button class="btn btn-outline-dark" onclick="generateSudokuArray()">Generate new board</button>
+                        </div>
+                    </div>
+                    <!-- Difficulty selector -->
+                    <p class="difficultyHeadling">Change difficulty</p>
+                    <button class="btn btn-outline-success" id="easyDiffBtn" onclick="closeAndOpenSudoku(20,'sudokuScreen')">Easy</button>
+                    <button class="btn btn-outline-warning" id="mediumDiffBtn" onclick="closeAndOpenSudoku(40,'sudokuScreen')">Medium</button>
+                    <button class="marginBottom btn btn-outline-danger" id="hardDiffBtn" onclick="closeAndOpenSudoku(60,'sudokuScreen')">Hard</button>
+                    <div class="row justify-content-center">
+                        <div class="col-2">
+                            <!-- Exit button -->
+                            <button class="btn btn-outline-dark" onclick="closeSoduku()"><i class="fas fa-sign-out-alt"></i></button>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <h1 id="h1FooterHeadline"><span>Y</span><span>.</span><span>Y </span><span>S</span><span>u</span><span>d</span><span>o</span><span>k</span>u</h1>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <script src="script.js "></script>
+</body>
+
+</html>

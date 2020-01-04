@@ -1,0 +1,341 @@
+/* Headline and footer Y.Y Sudoku */
+
+#h1FooterHeadline,
+#h1Headline {
+    text-align: center;
+    margin-top: 2%;
+    color: green;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+#h1FooterHeadline span:nth-child(2n),
+#h1Headline span:nth-child(2n) {
+    color: #4bc2c5;
+}
+
+
+/******************************************** Whole screens container ***************************************/
+
+body {
+    font-family: 'Saira Stencil One', cursive;
+    background-color: #d7fbe8;
+}
+
+h3 {
+    font-family: 'Luckiest Guy', cursive;
+}
+
+
+/* Media by screen width - Mobile (up to 767px) Medium screens (over 767px) Large screens (over 1500px) */
+
+@media screen and (max-width: 767px) {
+    .outterBox::before {
+        width: 500%;
+        height: 300%;
+    }
+    #loginScr h3 {
+        margin-bottom: 25%;
+    }
+    #registerScr h3 {
+        margin-bottom: 18%;
+    }
+    #forgetPassScr h3 {
+        margin-bottom: 20%;
+    }
+    #wellcomeScr h3 {
+        margin-bottom: 40%;
+    }
+    #loginScr input {
+        width: 100%;
+    }
+    #forgetPassScr input {
+        width: 100%;
+    }
+    #registerScr input {
+        width: 100%;
+    }
+    .sudokuTable input:disabled {
+        /*Fixing safair mobile disable default color*/
+        background-color: #d3d3d3;
+        -webkit-text-fill-color: #525252;
+        opacity: 1;
+    }
+    .sudokuTable input {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .outterBox::before {
+        width: 500%;
+        height: 500%;
+    }
+    #loginScr h3 {
+        margin-bottom: 5%;
+    }
+    .sudokuContainer {
+        margin: 0 8%;
+    }
+    #afterLoginScr p {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    #afterLoginScr h5 {
+        margin-bottom: 5%;
+    }
+    .sudokuTable {
+        height: 90%;
+        width: 120%;
+    }
+    #wellcomeScr h3 {
+        margin-bottom: 15%;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .outterBox::before {
+        width: 500%;
+        height: 700%;
+    }
+    #afterLoginScr h5 {
+        margin-bottom: 0;
+    }
+    #forgetPassScr h3 {
+        margin-bottom: -1%;
+    }
+    #afterLoginScr h3 {
+        margin-bottom: 5%;
+    }
+}
+
+.outterBox {
+    width: 70%;
+    height: 430px;
+    padding: 15px;
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    top: 15%;
+    transform: translatex(-50%);
+}
+
+.outterBox::before {
+    content: '';
+    position: absolute;
+    background: repeating-linear-gradient( white 0%, white 7.5px, green 7.5px, green 15px, white 15px, white 22.5px, green 22.5px, green 30px);
+    transform: translate(-20%, -20%) rotate(+45deg);
+    animation: animateStripes 20s linear infinite;
+}
+
+.contentBox {
+    height: 100%;
+    background: linear-gradient( #ADD8E6, #fafafa);
+    position: relative;
+}
+
+.outterBox,
+.contentBox {
+    box-shadow: 0 0 2px green, 0 0 5px rgba(0, 0, 0, 1), inset 0 0 5px rgba(0, 0, 0, 1);
+    border-radius: 10px;
+}
+
+
+/******************************************** Screen divs ***************************************/
+
+
+/* all screens */
+
+input {
+    text-align: center;
+    width: auto;
+    border-radius: 10px;
+    outline-offset: 10px;
+    border-style: solid;
+    outline: none;
+}
+
+h3 {
+    text-align: center;
+}
+
+.screenDiv {
+    text-align: center;
+    padding: 2% 2%;
+}
+
+
+/*Hides all screens aside Wellcome*/
+
+.Hide {
+    display: none;
+}
+
+
+/* overwrites bootstrap style all buttons marging */
+
+.btn {
+    margin: 2% 1%;
+}
+
+
+/* after login screen texts removes margin */
+
+.text-success,
+.text-warning,
+.text-danger {
+    margin-bottom: 0;
+}
+
+
+/******************************************** Sudoku Screen  ***************************************/
+
+
+/***************************** Sudoku table************************/
+
+.sudokuContainer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+/* Removing input number type arrows*/
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+
+/*Table cells styling*/
+
+.sudokuTable {
+    width: 100%;
+    height: 75%;
+    border-collapse: collapse;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 3%;
+}
+
+.sudokuTable input {
+    border: none;
+    border-radius: 5px;
+    width: 92%;
+    height: 92%;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+td {
+    border: 1px solid #bcd3c2;
+    background-color: #fff;
+}
+
+.boldTop {
+    border-top: 3px solid black;
+}
+
+.boldLeft {
+    border-left: 3px solid black;
+}
+
+.boldRight {
+    border-right: 3px solid black;
+}
+
+.boldBottum {
+    border-bottom: 3px solid black;
+}
+
+.difficultyHeadling {
+    margin: 2% 0 0;
+    font-size: 1.5rem;
+}
+
+.gapForHeadlines {
+    width: 100%;
+    height: 2rem;
+}
+
+
+/******************************************** Keyframes ***************************************/
+
+
+/* next element animation */
+
+@keyframes showNextEle {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animateStripes {
+    from {
+        background-position: 0;
+    }
+    to {
+        background-position: 0 450px;
+    }
+}
+
+@keyframes closeOutterBox {
+    from {
+        width: 70%;
+        opacity: 1;
+        display: block;
+    }
+    to {
+        width: 0%;
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes openOutterBox {
+    from {
+        width: 0%;
+        opacity: 0;
+        display: none;
+    }
+    to {
+        width: 70%;
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes moveHeadline {
+    from {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%)
+    }
+    to {
+        opacity: 0;
+        left: -500px;
+    }
+}
+
+@keyframes bringHeadline {
+    from {
+        opacity: 0;
+        left: -500px;
+    }
+    to {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%)
+    }
+}
